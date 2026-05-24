@@ -6,6 +6,7 @@ import { User, Package, MapPin, Settings, LogOut, ChevronRight } from "lucide-re
 import { motion } from "framer-motion";
 import { useSession, signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
+import { StoreBreadcrumb } from "@/components/ui/StoreBreadcrumb";
 
 const navItems = [
   { href: "/account", label: "My Profile", icon: User },
@@ -25,19 +26,15 @@ export function AccountLayout({ children }: { children: React.ReactNode }) {
     router.push("/");
   };
 
+  const activePage = navItems.find((n) => n.href === pathname);
+  const breadcrumbs = [
+    { label: "Account", href: "/account" },
+    ...(pathname !== "/account" && activePage ? [{ label: activePage.label }] : []),
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <nav className="text-sm text-gray-500 flex items-center gap-2 mb-8">
-        <Link href="/" className="hover:text-gray-900">Home</Link>
-        <span>›</span>
-        <Link href="/account" className="hover:text-gray-900">Account</Link>
-        {pathname !== "/account" && (
-          <>
-            <span>›</span>
-            <span className="text-gray-900 capitalize">{pathname.split("/").pop()?.replace("-", " ")}</span>
-          </>
-        )}
-      </nav>
+      <StoreBreadcrumb items={breadcrumbs} />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <aside className="lg:col-span-1">

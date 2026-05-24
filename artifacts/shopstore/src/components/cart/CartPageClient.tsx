@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useCartStore } from "@/store/cart";
 import { useSiteStore } from "@/store/site";
 import { formatPrice } from "@/lib/utils";
+import { StoreBreadcrumb } from "@/components/ui/StoreBreadcrumb";
 
 export function CartPageClient() {
   const { items, removeItem, updateQuantity, clearCart, promoCode, promoDiscount, applyPromoCode, removePromoCode, getSubtotal, getTotal } = useCartStore();
@@ -37,7 +38,9 @@ export function CartPageClient() {
 
   if (items.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <StoreBreadcrumb items={[{ label: "Cart" }]} />
+        <div className="py-10 text-center">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <ShoppingBag size={64} className="mx-auto text-gray-300 mb-6" />
           <h1 className="text-2xl font-bold text-gray-900 mb-3">Your cart is empty</h1>
@@ -50,17 +53,14 @@ export function CartPageClient() {
             Start Shopping
           </Link>
         </motion.div>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <nav className="text-sm text-gray-500 flex items-center gap-2 mb-8">
-        <Link href="/" className="hover:text-gray-900">Home</Link>
-        <span>›</span>
-        <span className="text-gray-900 font-medium">Cart</span>
-      </nav>
+      <StoreBreadcrumb items={[{ label: "Cart" }]} />
       <h1 className="text-3xl font-black text-gray-900 mb-8">
         Shopping Cart{" "}
         <span className="text-gray-400 font-normal text-xl">({items.length} {items.length === 1 ? "item" : "items"})</span>

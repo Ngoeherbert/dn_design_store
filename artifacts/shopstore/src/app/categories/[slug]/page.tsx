@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { StoreLayout } from "@/components/layout/StoreLayout";
 import { ShopPageClient } from "@/components/products/ShopPageClient";
+import { StoreBreadcrumb } from "@/components/ui/StoreBreadcrumb";
 import { db } from "@/lib/db";
 import { categories, products } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -49,6 +50,13 @@ export default async function CategoryPage({ params }: Props) {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
         <div className="relative z-10 h-full flex items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div>
+            <div className="flex items-center gap-2 text-white/60 text-sm mb-2">
+              <span className="hover:text-white/90 cursor-pointer">Home</span>
+              <span>›</span>
+              <span className="hover:text-white/90 cursor-pointer">Categories</span>
+              <span>›</span>
+              <span className="text-white font-medium">{displayCategory.name}</span>
+            </div>
             <h1 className="text-4xl font-black text-white">{displayCategory.name}</h1>
             {displayCategory.description && (
               <p className="text-white/80 mt-2">{displayCategory.description}</p>

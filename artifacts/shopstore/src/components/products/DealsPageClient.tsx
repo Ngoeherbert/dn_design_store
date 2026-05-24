@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Tag } from "lucide-react";
 import { ProductCard } from "./ProductCard";
 import { useSiteStore } from "@/store/site";
+import { StoreBreadcrumb } from "@/components/ui/StoreBreadcrumb";
 
 const DEMO_DEALS = [
   { id: 1, name: "Smart Fitness Watch", slug: "smart-fitness-watch", price: "149.00", originalPrice: "199.00", images: ["https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80"], badge: "25% OFF", trending: false, stock: 10, category: { name: "Electronics" } },
@@ -24,6 +25,7 @@ export function DealsPageClient({ products }: { products: Product[] }) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <StoreBreadcrumb items={[{ label: "Deals" }]} />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2.5 rounded-xl" style={{ backgroundColor: `${settings.primaryColor}15` }}>

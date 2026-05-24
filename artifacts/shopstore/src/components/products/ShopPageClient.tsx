@@ -6,6 +6,7 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 import Link from "next/link";
 import { ProductCard } from "./ProductCard";
 import { useSiteStore } from "@/store/site";
+import { StoreBreadcrumb } from "@/components/ui/StoreBreadcrumb";
 
 interface Category {
   id: number;
@@ -94,11 +95,7 @@ export function ShopPageClient({ products: serverProducts, categories: serverCat
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="mb-6">
-        <nav className="text-sm text-gray-500 flex items-center gap-2 mb-4">
-          <Link href="/" className="hover:text-gray-900">Home</Link>
-          <span>›</span>
-          <span className="text-gray-900 font-medium">Products</span>
-        </nav>
+        <StoreBreadcrumb items={[{ label: "Shop", href: "/shop" }, { label: selectedCategory !== "all" ? (displayCategories.find(c => c.slug === selectedCategory)?.name ?? "Products") : "All Products" }]} />
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-black text-gray-900">All Products</h1>

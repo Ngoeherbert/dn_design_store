@@ -12,6 +12,7 @@ import { useCartStore } from "@/store/cart";
 import { useWishlistStore } from "@/store/wishlist";
 import { useSiteStore } from "@/store/site";
 import { formatPrice } from "@/lib/utils";
+import { StoreBreadcrumb } from "@/components/ui/StoreBreadcrumb";
 
 interface Product {
   id: number;
@@ -75,23 +76,15 @@ export function ProductDetailClient({ product, settings }: Props) {
     toast.success(`${product.name} added to cart!`);
   };
 
+  const breadcrumbs = [
+    { label: "Shop", href: "/shop" },
+    ...(product.category ? [{ label: product.category.name, href: `/categories/${product.category.slug}` }] : []),
+    { label: product.name },
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <nav className="text-sm text-gray-500 flex items-center gap-2 mb-8">
-        <Link href="/" className="hover:text-gray-900">Home</Link>
-        <span>›</span>
-        <Link href="/shop" className="hover:text-gray-900">Products</Link>
-        {product.category && (
-          <>
-            <span>›</span>
-            <Link href={`/categories/${product.category.slug}`} className="hover:text-gray-900">
-              {product.category.name}
-            </Link>
-          </>
-        )}
-        <span>›</span>
-        <span className="text-gray-900">{product.name}</span>
-      </nav>
+      <StoreBreadcrumb items={breadcrumbs} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div>
