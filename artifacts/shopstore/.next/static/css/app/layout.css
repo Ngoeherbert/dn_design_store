@@ -910,6 +910,9 @@
   .max-w-7xl {
     max-width: var(--container-7xl);
   }
+  .max-w-\[200px\] {
+    max-width: 200px;
+  }
   .max-w-\[var\(--skeleton-width\)\] {
     max-width: var(--skeleton-width);
   }
@@ -2039,6 +2042,9 @@
   }
   .underline {
     text-decoration-line: underline;
+  }
+  .underline-offset-2 {
+    text-underline-offset: 2px;
   }
   .underline-offset-4 {
     text-underline-offset: 4px;
