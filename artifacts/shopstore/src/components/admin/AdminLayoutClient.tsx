@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Package, ShoppingBag, Users, Settings,
   LogOut, ChevronRight, Store, BarChart3, Menu, X
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useSiteStore } from "@/store/site";
@@ -24,15 +24,35 @@ const navItems = [
 export function AdminLayoutClient({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
   const { settings } = useSiteStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    if (isPending) return;
+    if (!session?.user) {
+      router.replace("/login?redirect=/admin");
+    } else if ((session.user as any).role !== "admin") {
+      router.replace("/");
+    }
+  }, [session, isPending, router]);
 
   const handleSignOut = async () => {
     await signOut();
     toast.success("Signed out");
     router.push("/");
   };
+
+  if (isPending || !session?.user || (session.user as any).role !== "admin") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-gray-500 text-sm">Checking access...</p>
+        </div>
+      </div>
+    );
+  }
 
   const Sidebar = () => (
     <div className="flex flex-col h-full">

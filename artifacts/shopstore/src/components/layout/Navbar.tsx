@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
-  { href: "/categories", label: "Categories" },
+  { href: "/#categories", label: "Categories" },
   { href: "/deals", label: "Deals" },
 ];
 
@@ -134,13 +134,6 @@ export function Navbar() {
                     className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
                   >
                     Login
-                  </Link>
-                  <Link
-                    href="/admin"
-                    className="text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-                    style={{ backgroundColor: settings.secondaryColor ?? "#111827" }}
-                  >
-                    Dashboard
                   </Link>
                 </div>
               )}

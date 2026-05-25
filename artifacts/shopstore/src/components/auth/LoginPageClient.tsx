@@ -27,12 +27,13 @@ export function LoginPageClient() {
       toast.error(res.error.message ?? "Login failed");
     } else {
       toast.success("Welcome back!");
-      router.push("/");
+      const role = (res.data?.user as any)?.role;
+      router.push(role === "admin" ? "/admin" : "/");
     }
   };
 
   const handleGoogle = async () => {
-    await signIn.social({ provider: "google", callbackURL: "/" });
+    await signIn.social({ provider: "google", callbackURL: "/auth/callback" });
   };
 
   return (
