@@ -135,13 +135,6 @@ export function Navbar() {
                   >
                     Login
                   </Link>
-                  <Link
-                    href="/admin"
-                    className="text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-                    style={{ backgroundColor: settings.secondaryColor ?? "#111827" }}
-                  >
-                    Dashboard
-                  </Link>
                 </div>
               )}
 
